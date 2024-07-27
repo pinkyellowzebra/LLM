@@ -1,7 +1,6 @@
-streamlit
-pandas
-google.generativeai
-ip_address
-Markdown
-display
-python-dateutil
+streamlit 
+google-api-python-client 
+youtube-transcript-api 
+google-generativeai 
+iso-639 
+langchain
