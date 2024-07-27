@@ -1,0 +1,6 @@
+streamlit 
+google-api-python-client 
+youtube-transcript-api 
+google-generativeai 
+iso-639 
+langchain
