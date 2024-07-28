@@ -16,6 +16,8 @@ from iso639 import languages
 import string
 from langchain.callbacks.base import BaseCallbackHandler
 from langchain.schema import ChatMessage
+from io import BytesIO
+from docx import Document
 
 # API Key Validation
 def valid_api_key(api_key):
@@ -100,7 +102,17 @@ class ChatSession:
 
     def clear_history(self):
         self.history = [] # Clear chat history
-        
+
+# Ftn to convert video summary(response1) results into a Word document
+def download_to_word(text):
+    doc = Document()
+    doc.add_heading('Summary', 0)
+    doc.add_paragraph(text)
+    buffer = BytesIO()
+    doc.save(buffer)
+    buffer.seek(0)
+    return buffer
+    
 # Stream Handler Class: Handles and displays streaming text content in the Streamlit app
 class StreamHandler(BaseCallbackHandler):
     # Sets up a container for displaying streamed text and initializes an empty string for the text
@@ -146,6 +158,22 @@ def main():
                 session = ChatSession(gemini_api_key)
                 response1 = session.send_message(f"The title of the video is {title}, the description is {description}, and the transcript is {transcript}, but please summarize the entire script by correcting any misrepresented technical terms based on the given information.") 
                 st.markdown(response1)
+
+                # Download the results(response1)
+                # Layout with columns to align the button to the right
+                col1, col2 = st.columns([4, 1])  
+
+                with col1:
+                    st.write("")  # Placeholder for alignment
+
+                with col2:
+                    doc_buffer = download_to_word(response1)
+                    st.download_button(
+                        label="Download",
+                        data=doc_buffer,
+                        file_name="summary.docx",
+                        mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                    )
 
                 if "messages" not in st.session_state:
                     st.session_state["messages"] = [ChatMessage(role="assistant", content="If you have any questions, please ask.")]
