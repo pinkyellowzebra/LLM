@@ -4,3 +4,4 @@ youtube-transcript-api
 google-generativeai 
 iso-639 
 langchain
+python-docx
