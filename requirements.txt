@@ -1,7 +1,5 @@
-streamlit 
-google-api-python-client 
-youtube-transcript-api 
-google-generativeai 
-iso-639 
-langchain
-python-docx
+streamlit>=1.38.0
+anthropic[bedrock,vertex]>=0.37.1
+jsonschema==4.22.0
+boto3>=1.28.57
+google-auth<3,>=2
