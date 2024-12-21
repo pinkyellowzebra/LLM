@@ -1,4 +1,4 @@
-﻿streamlit==1.21.0
+streamlit==1.21.0
 langchain==0.0.164
 openai==0.27.0
-HuggingFace_hub
+huggingface-hub>=0.16.0
